@@ -1,60 +1,85 @@
-// Lấy các phần tử HTML
-const mailIndexInput = document.getElementById("mailIndex");
-const mailListInput = document.getElementById("mailList");
-const resultDiv = document.getElementById("result");
-const resultSection = document.getElementById("resultSection");
-const chooseBtn = document.getElementById("chooseBtn");
-const filterBtn = document.getElementById("filterBtn");
-const resetBtn = document.getElementById("resetBtn");
-
-// Kiểm tra xem có mail mặc định trong localStorage không
+// Load dữ liệu khi vào trang
 window.onload = () => {
-  const savedMail = localStorage.getItem("selectedMail");
-  if (savedMail) {
-    showResult(savedMail);
+  const savedMails = JSON.parse(localStorage.getItem("emails")) || [];
+  const savedIndex = parseInt(localStorage.getItem("selectedIndex"));
+  if (savedMails.length > 0) {
+    renderMails(savedMails, savedIndex);
   }
 };
 
-// Khi bấm nút Chọn
-chooseBtn.addEventListener("click", () => {
-  const index = parseInt(mailIndexInput.value.trim()) - 1;
-  const mailList = mailListInput.value.trim().split("\n");
+function pasteAndFilter() {
+  navigator.clipboard.readText().then(text => {
+    const emails = filterEmails(text);
 
-  if (!mailListInput.value) {
-    alert("Vui lòng dán danh sách mail trước!");
-    return;
+    if (emails.length === 0) {
+      alert("Không tìm thấy email hợp lệ!");
+      return;
+    }
+
+    // Ghi đè danh sách mail vào localStorage
+    localStorage.setItem("emails", JSON.stringify(emails));
+    localStorage.removeItem("selectedIndex"); // reset lựa chọn cũ
+
+    renderMails(emails, null);
+  }).catch(err => {
+    alert("Không thể dán từ clipboard: " + err);
+  });
+}
+
+function filterEmails(text) {
+  const lines = text.split('\n').map(line => line.trim());
+  const emails = [];
+
+  for (const line of lines) {
+    const match = line.match(/^([^\s|]+@[^\s|]+)(?:[\s|]+.*)?$/);
+    if (match) {
+      emails.push(match[1]);
+    }
   }
+  return emails;
+}
 
-  if (index >= 0 && index < mailList.length) {
-    const selectedMail = mailList[index].split("|")[0]; // Lấy email (bỏ mật khẩu)
-    showResult(selectedMail);
-    localStorage.setItem("selectedMail", selectedMail); // Lưu mail mặc định
-  } else {
-    alert("Số mail không hợp lệ!");
-  }
-});
+function renderMails(emails, selectedIndex = null) {
+  const grid = document.getElementById('mailGrid');
+  grid.innerHTML = '';
 
-// Khi bấm nút Dán & Lọc
-filterBtn.addEventListener("click", () => {
-  const mailList = mailListInput.value.trim().split("\n");
-  if (mailList.length === 0 || !mailListInput.value) {
-    alert("Danh sách mail trống!");
-    return;
-  }
-  alert("Danh sách mail đã được dán và sẵn sàng!");
-});
+  emails.forEach((email, index) => {
+    const item = document.createElement('div');
+    item.className = 'mail-item';
+    if (index === selectedIndex) {
+      item.classList.add('selected');
+    }
 
-// Khi bấm RESET
-resetBtn.addEventListener("click", () => {
-  localStorage.removeItem("selectedMail");
-  resultSection.classList.add("hidden");
-  resultDiv.innerHTML = "";
-  mailIndexInput.value = "";
-  mailListInput.value = "";
-});
+    item.onclick = () => {
+      // Lưu vị trí mail đã chọn
+      localStorage.setItem("selectedIndex", index);
+      copyEmail(email, index + 1);
+      renderMails(emails, index);
+    };
 
-// Hàm hiển thị kết quả
-function showResult(mail) {
-  resultDiv.innerText = "Mail đã chọn: " + mail;
-  resultSection.classList.remove("hidden");
+    const icon = document.createElement('div');
+    icon.className = 'mail-icon';
+    icon.innerHTML = '✉️';
+
+    const label = document.createElement('div');
+    label.className = 'mail-label';
+    label.textContent = `Mail ${index + 1}`;
+
+    item.appendChild(icon);
+    item.appendChild(label);
+    grid.appendChild(item);
+  });
+}
+
+function copyEmail(email, index) {
+  navigator.clipboard.writeText(email).then(() => {
+    showAlert(`Đã sao chép Mail ${index}`);
+  });
+}
+
+function showAlert(message) {
+  const alertBox = document.getElementById('copyAlert');
+  alertBox.textContent = message;
+  alertBox.style.display = 'block';
+  setTimeout(() => alertBox.style.display = 'none', 1200);
 }
