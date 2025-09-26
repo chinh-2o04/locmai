@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách Mail</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <div id="inputSection">
+      <label>Nhập số mail muốn Copy</label>
+      <input type="number" id="mailIndex" placeholder="Ví dụ: 1">
+      <button id="chooseBtn">Chọn</button>
+    </div>
+
+    <div id="pasteSection">
+      <h3>Danh sách Mail</h3>
+      <textarea id="mailList" placeholder="Dán danh sách mail vào đây"></textarea>
+      <button id="filterBtn">DÁN & LỌC</button>
+      <button id="resetBtn" class="reset">RESET</button>
+    </div>
+
+    <div id="resultSection" class="hidden">
+      <h3>Kết quả</h3>
+      <div id="result"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
