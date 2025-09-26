@@ -1,84 +1,88 @@
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: sans-serif;
+  text-align: center;
   margin: 0;
-  padding: 0;
-  background-color: #fff;
-  text-align: center;
+  padding: 20px;
+  background: #f9f9f9;
 }
 
-h1 {
-  font-size: 24px;
-  margin: 18px 0 10px;
-  font-weight: bold;
+.controls {
+  margin-bottom: 15px;
 }
 
-.action-button {
-  margin: 12px 0 5px;
-}
-
-.action-button button {
-  font-size: 16px;
-  padding: 8px 18px;
-  background-color: #57c3ff;
-  border: none;
-  border-radius: 10px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.mail-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
-  gap: 6px;
-  justify-items: center;
-  padding: 12px 14px;
-}
-
-.mail-item {
-  text-align: center;
-  cursor: pointer;
-}
-
-.mail-icon {
-  width: 50px;
-  height: 50px;
-  background-color: #ffdcd4;
-  border-radius: 50%;
+.mail-select {
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 24px;
-  user-select: none;
-  transition: 0.2s;
+  align-items: center;
+  margin: 10px 0;
 }
 
-.mail-item.selected .mail-icon {
-  background-color: #57c3ff;
-  color: #fff;
+.mail-select button {
+  background: #66ccff;
+  border: none;
+  padding: 8px 12px;
+  margin-right: 5px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
 }
 
-.mail-label {
-  margin-top: 3px;
-  font-size: 12px;
+.mail-select input {
+  width: 100px;
+  padding: 6px;
+  font-size: 14px;
+  text-align: center;
+  border: 2px solid #007aff;
+  border-radius: 6px;
 }
 
-.copy-alert {
+button {
+  margin: 5px;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  background: #007aff;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  word-break: break-word;
+}
+
+.toast {
   position: fixed;
-  top: 48%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #baffeb;
-  padding: 10px 16px;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: 15px;
+  background: #28a745;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
   display: none;
-  z-index: 999;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  font-size: 14px;
 }
 
-footer {
-  margin: 30px 0 15px;
-  font-size: 14px;
-  color: #999;
+.thanks {
+  margin-top: 30px;
+  font-size: 12px;
+  color: #555;
 }
