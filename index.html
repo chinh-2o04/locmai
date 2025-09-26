@@ -7,17 +7,23 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <h1>Danh sách Mail</h1>
+  <h2>Danh sách Mail</h2>
 
-  <div class="action-button">
+  <div class="controls">
     <button onclick="pasteAndFilter()">📋 DÁN & LỌC</button>
+    <button onclick="resetAll()" style="background:#ff3b30;">RESET</button>
   </div>
 
-  <div id="mailGrid" class="mail-grid"></div>
+  <div class="mail-select">
+    <button>Chọn</button>
+    <input id="mailIndex" type="number" placeholder="Số mail"/>
+  </div>
 
-  <div id="copyAlert" class="copy-alert">Đã sao chép</div>
+  <div id="grid" class="grid"></div>
 
-  <footer>Thanks ❤️</footer>
+  <div id="toast" class="toast">Đã sao chép</div>
+
+  <div class="thanks">Thanks ❤️</div>
 
   <script src="script.js"></script>
 </body>
