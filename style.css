@@ -1,0 +1,55 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #f8f8f8;
+  padding: 20px;
+}
+
+#app {
+  max-width: 600px;
+  margin: auto;
+}
+
+#inputSection, #pasteSection, #resultSection {
+  margin: 20px 0;
+}
+
+input, textarea {
+  padding: 10px;
+  width: 80%;
+  margin: 10px 0;
+}
+
+button {
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+#filterBtn {
+  background: #4caf50;
+  color: white;
+}
+
+#chooseBtn {
+  background: #2196f3;
+  color: white;
+}
+
+.reset {
+  background: red;
+  color: white;
+}
+
+#result {
+  padding: 15px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  background: #fff;
+}
+
+.hidden {
+  display: none;
+}
