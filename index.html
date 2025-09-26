@@ -1,29 +1,24 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lọc Mail</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Danh sách Mail</h2>
-
-  <div class="controls">
-    <button onclick="pasteAndFilter()">📋 DÁN & LỌC</button>
-    <button onclick="resetAll()" style="background:#ff3b30;">RESET</button>
+  <div class="header">
+    <h2>Danh sách Mail</h2>
+    <button class="reset-btn" onclick="resetData()">RESET</button>
   </div>
 
-  <div class="mail-select">
-    <button>Chọn</button>
-    <input id="mailIndex" type="number" placeholder="Số mail"/>
-  </div>
+  <button class="paste-btn" onclick="pasteAndFilter()">📋 Dán & Lọc</button>
 
-  <div id="grid" class="grid"></div>
+  <div id="mailList" class="grid"></div>
 
-  <div id="toast" class="toast">Đã sao chép</div>
+  <div id="copyAlert" class="copy-alert">Đã sao chép</div>
 
-  <div class="thanks">Thanks ❤️</div>
+  <footer>thanks</footer>
 
   <script src="script.js"></script>
 </body>
