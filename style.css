@@ -1,55 +1,84 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
   text-align: center;
-  background: #f8f8f8;
-  padding: 20px;
 }
 
-#app {
-  max-width: 600px;
-  margin: auto;
+h1 {
+  font-size: 24px;
+  margin: 18px 0 10px;
+  font-weight: bold;
 }
 
-#inputSection, #pasteSection, #resultSection {
-  margin: 20px 0;
+.action-button {
+  margin: 12px 0 5px;
 }
 
-input, textarea {
-  padding: 10px;
-  width: 80%;
-  margin: 10px 0;
-}
-
-button {
-  padding: 10px 15px;
-  margin: 5px;
-  cursor: pointer;
+.action-button button {
+  font-size: 16px;
+  padding: 8px 18px;
+  background-color: #57c3ff;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-#filterBtn {
-  background: #4caf50;
-  color: white;
+.mail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+  gap: 6px;
+  justify-items: center;
+  padding: 12px 14px;
 }
 
-#chooseBtn {
-  background: #2196f3;
-  color: white;
+.mail-item {
+  text-align: center;
+  cursor: pointer;
 }
 
-.reset {
-  background: red;
-  color: white;
+.mail-icon {
+  width: 50px;
+  height: 50px;
+  background-color: #ffdcd4;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  user-select: none;
+  transition: 0.2s;
 }
 
-#result {
-  padding: 15px;
-  border: 1px solid #ccc;
-  margin-top: 10px;
-  background: #fff;
+.mail-item.selected .mail-icon {
+  background-color: #57c3ff;
+  color: #fff;
 }
 
-.hidden {
+.mail-label {
+  margin-top: 3px;
+  font-size: 12px;
+}
+
+.copy-alert {
+  position: fixed;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #baffeb;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 15px;
   display: none;
+  z-index: 999;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+footer {
+  margin: 30px 0 15px;
+  font-size: 14px;
+  color: #999;
 }
