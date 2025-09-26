@@ -1,88 +1,77 @@
 body {
-  font-family: sans-serif;
+  font-family: Arial, sans-serif;
   text-align: center;
   margin: 0;
-  padding: 20px;
-  background: #f9f9f9;
+  padding: 0;
 }
 
-.controls {
-  margin-bottom: 15px;
-}
-
-.mail-select {
+.header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  margin: 10px 0;
+  padding: 10px;
 }
 
-.mail-select button {
-  background: #66ccff;
-  border: none;
-  padding: 8px 12px;
-  margin-right: 5px;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.mail-select input {
-  width: 100px;
-  padding: 6px;
-  font-size: 14px;
-  text-align: center;
-  border: 2px solid #007aff;
-  border-radius: 6px;
-}
-
-button {
-  margin: 5px;
-  padding: 8px 14px;
-  font-size: 14px;
-  border-radius: 6px;
-  border: none;
-  background: #007aff;
+.reset-btn {
+  background: red;
   color: white;
+  font-weight: bold;
+  border: none;
+  padding: 5px 10px;
   cursor: pointer;
 }
 
-button:hover {
-  opacity: 0.9;
+.paste-btn {
+  background: #1e90ff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 15px auto;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-  gap: 8px;
-  margin-top: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  padding: 10px;
 }
 
-.card {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+.mail-item {
+  background: #ffecec;
+  border-radius: 10px;
   padding: 10px;
   cursor: pointer;
-  font-size: 13px;
-  word-break: break-word;
+  transition: transform 0.1s;
 }
 
-.toast {
+.mail-item:hover {
+  transform: scale(1.05);
+}
+
+.mail-item img {
+  width: 40px;
+  height: 40px;
+}
+
+.copy-alert {
+  display: none;
   position: fixed;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #28a745;
+  background: #4caf50;
   color: white;
-  padding: 12px 20px;
-  border-radius: 6px;
-  display: none;
-  font-size: 14px;
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-size: 18px;
+  z-index: 1000;
 }
 
-.thanks {
-  margin-top: 30px;
-  font-size: 12px;
-  color: #555;
+footer {
+  margin: 20px 0;
+  font-size: 14px;
+  color: gray;
 }
