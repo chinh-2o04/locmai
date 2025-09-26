@@ -1,74 +1,60 @@
-function pasteAndFilter() {
-  navigator.clipboard.readText().then(text => {
-    const emails = filterEmails(text);
-    localStorage.setItem("emails", JSON.stringify(emails));
-    renderSelected();
-  }).catch(err => {
-    alert("Không thể dán từ clipboard: " + err);
-  });
-}
+// Lấy dữ liệu từ LocalStorage
+let mails = JSON.parse(localStorage.getItem("mails")) || [];
+renderMails();
 
-function filterEmails(text) {
-  const lines = text.split('\n').map(l => l.trim());
-  const emails = [];
-  for (const line of lines) {
-    const match = line.match(/^([^\s|]+@[^\s|]+)(?:[\s|]+.*)?$/);
-    if (match) emails.push(match[1]);
-  }
-  return emails;
-}
+async function pasteAndFilter() {
+  try {
+    const text = await navigator.clipboard.readText();
+    const newMails = extractEmails(text);
 
-function renderSelected() {
-  const grid = document.getElementById("grid");
-  grid.innerHTML = "";
-
-  const emails = JSON.parse(localStorage.getItem("emails") || "[]");
-  const indexInput = document.getElementById("mailIndex").value;
-  const idx = parseInt(indexInput);
-
-  if (emails.length === 0) return;
-
-  if (!isNaN(idx) && idx >= 1 && idx <= emails.length) {
-    renderCard(emails[idx - 1], idx);
-  } else {
-    renderCard(emails[0], 1);
+    if (newMails.length > 0) {
+      mails = [...new Set([...mails, ...newMails])];
+      localStorage.setItem("mails", JSON.stringify(mails));
+      renderMails();
+    } else {
+      alert("Không tìm thấy mail hợp lệ trong clipboard!");
+    }
+  } catch (err) {
+    alert("Không thể truy cập clipboard. Hãy thử lại!");
   }
 }
 
-function renderCard(email, index) {
-  const grid = document.getElementById("grid");
-  const card = document.createElement("div");
-  card.className = "card";
-  card.onclick = () => copyEmail(email, index);
-
-  const icon = document.createElement("div");
-  icon.textContent = "✉️";
-  icon.style.fontSize = "40px";
-
-  const label = document.createElement("div");
-  label.textContent = `Mail ${index}`;
-
-  card.appendChild(icon);
-  card.appendChild(label);
-  grid.appendChild(card);
+function extractEmails(text) {
+  const regex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}/g;
+  return text.match(regex) || [];
 }
 
-function copyEmail(email, index) {
-  navigator.clipboard.writeText(email).then(() => {
-    showToast(`Đã sao chép mail ${index}`);
+function renderMails() {
+  const container = document.getElementById("mailList");
+  container.innerHTML = "";
+  mails.forEach((mail, index) => {
+    const div = document.createElement("div");
+    div.className = "mail-item";
+    div.innerHTML = `
+      <img src="https://img.icons8.com/ios-filled/50/000000/new-post.png" alt="mail">
+      <p>Mail ${index + 1}</p>
+      <small>${mail}</small>
+    `;
+    div.onclick = () => copyMail(mail);
+    container.appendChild(div);
   });
 }
 
-function showToast(msg) {
-  const t = document.getElementById("toast");
-  t.textContent = msg;
-  t.style.display = "block";
+function copyMail(mail) {
+  navigator.clipboard.writeText(mail).then(() => {
+    const alertBox = document.getElementById("copyAlert");
+    alertBox.textContent = `Đã sao chép: ${mail}`;
+    alertBox.style.display = "block";
+    setTimeout(() => {
+      alertBox.style.display = "none";
+    }, 2000);
+  });
 }
 
-function resetAll() {
-  localStorage.removeItem("emails");
-  document.getElementById("grid").innerHTML = "";
-  document.getElementById("mailIndex").value = "";
+function resetData() {
+  if (confirm("Bạn có chắc muốn xóa toàn bộ mail?")) {
+    mails = [];
+    localStorage.removeItem("mails");
+    renderMails();
+  }
 }
-
-window.onload = renderSelected;
