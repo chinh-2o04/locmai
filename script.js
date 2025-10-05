@@ -35,20 +35,22 @@ function renderMails(emails) {
   if (selectedIndex) {
     const index = parseInt(selectedIndex, 10);
 
-    if (index > 0 && index <= emails.length) {
-      // Trường hợp index hợp lệ trong danh sách
-      createMailItem(grid, emails[index - 1], index);
-      return;
-    } else {
-      // Nếu index lớn hơn tổng số mail → hiện toàn bộ danh sách
-      emails.forEach((email, i) => {
-        createMailItem(grid, email, i + 1);
-      });
+    if (index > 0) {
+      if (index <= emails.length) {
+        // Nếu index hợp lệ trong danh sách
+        createMailItem(grid, emails[index - 1], index);
+      } else {
+        // Nếu index lớn hơn số mail → hiện toàn bộ
+        emails.forEach((email, i) => {
+          createMailItem(grid, email, i + 1);
+        });
+        showAlert(`Số đã chọn lớn hơn danh sách, hiển thị toàn bộ (${emails.length}) mail`);
+      }
       return;
     }
   }
 
-  // Nếu chưa chọn số → hiện toàn bộ danh sách
+  // Nếu chưa chọn số → hiện toàn bộ
   emails.forEach((email, i) => {
     createMailItem(grid, email, i + 1);
   });
